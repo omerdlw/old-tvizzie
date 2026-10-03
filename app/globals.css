@@ -1,0 +1,129 @@
+@import 'tailwindcss';
+@import 'lenis/dist/lenis.css';
+
+@theme {
+  --color-white: var(--white);
+  --color-black: var(--black);
+  --color-primary: var(--primary);
+
+  --color-error: oklch(0.657 0.183 25);
+  --color-warning: oklch(0.788 0.177 75);
+  --color-success: oklch(0.623 0.178 145);
+  --color-info: oklch(0.629 0.187 252);
+
+  --font-zuume: var(--font-zuume);
+}
+
+@layer base {
+  :root {
+    --white: #fcfcfb;
+    --black: #000;
+    --primary: #fff;
+  }
+
+  html,
+  body {
+    overscroll-behavior: none;
+    color-scheme: dark;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  html.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+}
+
+* {
+  -ms-overflow-style: none;
+  box-sizing: border-box;
+  scrollbar-width: none;
+  outline: 0;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+@layer utilities {
+  .center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .skeleton-block,
+  .skeleton-block-soft {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skeleton-block {
+    background-color: rgb(252 252 251 / 0.05);
+  }
+
+  .skeleton-block-soft {
+    background-color: rgb(252 252 251 / 0.05);
+  }
+
+  .tooltip-content {
+    animation-duration: 160ms;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+  }
+
+  .tooltip-content[data-state='delayed-open'],
+  .tooltip-content[data-state='instant-open'] {
+    animation-name: tooltip-enter;
+  }
+
+  .tooltip-content[data-state='closed'] {
+    animation-name: tooltip-exit;
+    animation-duration: 100ms;
+  }
+
+  .tooltip-content[data-side='top'] {
+    --tooltip-slide-y: 4px;
+    --tooltip-slide-x: 0px;
+  }
+
+  .tooltip-content[data-side='bottom'] {
+    --tooltip-slide-y: -4px;
+    --tooltip-slide-x: 0px;
+  }
+
+  .tooltip-content[data-side='left'] {
+    --tooltip-slide-y: 0px;
+    --tooltip-slide-x: 4px;
+  }
+
+  .tooltip-content[data-side='right'] {
+    --tooltip-slide-y: 0px;
+    --tooltip-slide-x: -4px;
+  }
+}
+
+@keyframes tooltip-enter {
+  from {
+    opacity: 0;
+    transform: translate(var(--tooltip-slide-x, 0px), var(--tooltip-slide-y, 0px)) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+@keyframes tooltip-exit {
+  from {
+    opacity: 1;
+    transform: translate(0px, 0px) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(var(--tooltip-slide-x, 0px), var(--tooltip-slide-y, 0px)) scale(0.96);
+  }
+}
